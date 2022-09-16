@@ -1,3 +1,10 @@
+/*---------------------------------------------------------------------------
+	Copyright © 2022 Tom Stevelt and Silver Hammer Software LLC
+	Tom Stevelt <tstevelt@silverhammersoftware.com>
+
+	This software is free software; you can redistribute it and/or modify
+	it under the terms of the MIT license. See LICENSE for details.
+---------------------------------------------------------------------------*/
 
 #include	"csv2json.h"
 
@@ -5,25 +12,6 @@ void gettypes ( char *Tokens[], int TokenCount )
 {
 	int		xt, xi, xl;
 
-/*---------------------------------------------------------------------------
-TICKER,NAME,FOREIGN
-BG,Bunge Limited,false
-CRH,CRH PLC American Depositary Shares,true
-CVX,Chevron Corporation,false
-EMN,Eastman Chemical Company,false
-GLW,Corning Incorporated,false
-HIG,Hartford Financial Services Group Inc. (The),false
-HPE,Hewlett Packard Enterprise Company,false
-HUN,Huntsman Corporation,false
-IP,International Paper Company,false
-LXFR,Luxfer Holdings PLC,false
-MO,Altria Group Inc.,false
-NOK,Nokia Corporation Sponsored American Depositary Shares,true
-OMC,Omnicom Group Inc.,false
-STX,Seagate Technology PLC,false
-THG,Hanover Insurance Group Inc,false
-XOM,Exxon Mobil Corporation,false
----------------------------------------------------------------------------*/
 	for ( xt = 0; xt < TokenCount; xt++ )
 	{
 		if (( strcmp ( Tokens[xt], "true"  ) == 0 ) ||

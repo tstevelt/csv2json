@@ -7,7 +7,9 @@ FILES = \
 	$(LIB)(csv2json.o)	\
 	$(LIB)(getargs.o)	\
 	$(LIB)(gettoks.o)	\
-	$(LIB)(gettypes.o)
+	$(LIB)(gettypes.o)	\
+	$(LIB)(headers.o)	\
+	$(LIB)(output.o)
 
 .SILENT:
 

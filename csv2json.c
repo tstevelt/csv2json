@@ -23,8 +23,9 @@
 int main ( int argc, char *argv[] )
 {
 	FILE	*ifp, *ofp;
+	char	xheader[MAXBUFFER];
 	char	xbuffer[MAXBUFFER];
-	int		xt, inLineno, outLineno, xl;
+	int		xt, inLineno, outLineno, xi, xo, xl;
 	char	*cp, *next;
 
 	getargs ( argc, argv );
@@ -70,65 +71,65 @@ int main ( int argc, char *argv[] )
 			memmove ( cp, next, xl );
 		}
 
-		tokcnt = gettoks ( xbuffer, tokens, MAXTOKS );
-		if ( tokcnt == 0 )
-		{
-			continue;
-		}
-
+		/*----------------------------------------------------------
+			if first line and has headers, get columns
+			else get tokens.
+		----------------------------------------------------------*/
 		if ( HasHeader && inLineno == 1 )
 		{
-			for ( xt = 0; xt < tokcnt; xt++ )
+			if ( Style == STYLE_TERSE )
 			{
-				if ( xt == 0 )
-				{
-					fprintf ( ofp, "{" );
-				}
-				else
-				{
-					fprintf ( ofp, "," );
-				}
-				fprintf ( ofp, "\"column%d\":\"%s\"", xt+1, tokens[xt] );
-			}
-			fprintf ( ofp, "}," );
-
-			continue;
-		}
-
-		if ( Debug )
-		{
-			for ( xt = 0; xt < tokcnt; xt++ )
-			{
-				printf ( "%3d: %3d %s\n", inLineno, xt, tokens[xt] );
-			}
-		}
-
-		outLineno++;
-		if ( outLineno == 1 )
-		{
-			gettypes ( tokens, tokcnt );
-		}
-		else if ( outLineno > 1 )
-		{
-			fprintf ( ofp, "," );
-		}
-		fprintf ( ofp, "[" );
-		for ( xt = 0; xt < tokcnt; xt++ )
-		{
-			if ( xt )
-			{
-				fprintf ( ofp, "," );
-			}
-			if ( dataTypes[xt] == DT_STRING )
-			{
-				fprintf ( ofp, "\"%s\"", tokens[xt] );
+				sprintf ( xheader, "%s", xbuffer );
 			}
 			else
 			{
-				fprintf ( ofp, "%s", tokens[xt] );
+				xl = strlen ( xbuffer );
+				for ( xi = 0, xo = 0; xi < xl; xi++ )
+				{
+					if ( xbuffer[xi] == ',' || isalpha(xbuffer[xi]) || isdigit(xbuffer[xi]) )
+					{
+						xheader[xo++] = xbuffer[xi];
+					}
+				}
+				xheader[xo] = '\0';
+			}
+
+			tokcnt = gettoks ( xheader, columns, MAXTOKS );
+
+			if ( Debug )
+			{
+				for ( xt = 0; xt < tokcnt; xt++ )
+				{
+					printf ( "%3d: %3d %s\n", inLineno, xt, columns[xt] );
+				}
+			}
+			continue;
+		}
+		else
+		{
+			tokcnt = gettoks ( xbuffer, tokens, MAXTOKS );
+
+			if ( outLineno == 0 )
+			{
+				gettypes ( tokens, tokcnt );
+			}
+
+			if ( Debug )
+			{
+				for ( xt = 0; xt < tokcnt; xt++ )
+				{
+					printf ( "%3d: %3d %s\n", inLineno, xt, tokens[xt] );
+				}
 			}
 		}
-		fprintf ( ofp, "]" );
+
+		if ( HasHeader && outLineno == 0 )
+		{
+			headers ( ofp );
+		}
+
+		output ( ofp, outLineno );
+		outLineno++;
 	}
 
 	fprintf ( ofp, "]" );

@@ -4,6 +4,7 @@ Yet Another CSV to JSON converter.
 USAGE:  csv2json csvfile jsonfile [options]
 options:
   -header  first line is column headers
+  -style {terse|dict|flat|bloated|keyed}
   -d       debug
 
 Features of tstevelt/csv2json 
@@ -19,14 +20,22 @@ Make and Install
 		in makefile if another directory is preferred.
 	3. make
 	4. Demo.sh (note) to test various files and options.
+	5. Style.sh to test various styles.
 	5. make clean
 
 Note: Demo.sh calls JsonTree utility.  Also available on GitHub.
 	  https://github.com/tstevelt/JsonTree
 
+A couple of warnings about -style
+	1. If first row of CSV file contains column headings and program
+	   is run without the -header option, then you will probably not 
+	   get the expected results.  All columns will most likely be 
+	   output as strings (unless you have an integer as a column heading).
+
+	2. Column headings are required for -style dict, bloated and keyed.
+
 Existing programs, by other people:
 	1. https://csvjson.com/csv2json
 	2. https://www.convertcsv.com/csv-to-json.htm
-		has four different output formats!
 	3. and several more, including libraries and other languages.
 

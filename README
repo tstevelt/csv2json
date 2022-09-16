@@ -1,0 +1,17 @@
+
+Yet Another CSV to JSON converter.
+
+Existing programs, by other people:
+	1. https://csvjson.com/csv2json
+	2. https://www.convertcsv.com/csv-to-json.htm
+		has four different output formats!
+	3. and several more, including libraries and other languages.
+
+Features of tstevelt/csv2json 
+	1. Source code.
+	2. C language
+	3. No library dependancies.
+	4. 
+	5. 
+	6. 
+

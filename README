@@ -18,8 +18,11 @@ Make and Install
 	2. Exectable will be loaded into /usr/local/bin.  Change this
 		in makefile if another directory is preferred.
 	3. make
-	4. Demo.sh to test various files and options.
+	4. Demo.sh (note) to test various files and options.
 	5. make clean
+
+Note: Demo.sh calls JsonTree utility.  Also available on GitHub.
+	  https://github.com/tstevelt/JsonTree
 
 Existing programs, by other people:
 	1. https://csvjson.com/csv2json

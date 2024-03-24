@@ -36,10 +36,18 @@ int main ( int argc, char *argv[] )
 		exit ( 1 );
 	}
 
-	if (( ofp = fopen ( jsonFile, "w" )) == NULL )
+	if (( strcmp ( jsonFile, "stdout" ) == 0 ) ||
+		( strcmp ( jsonFile, "-" )      == 0 ))
 	{
-		fprintf ( stderr, "Cannot open %s for output\n", jsonFile );
-		exit ( 1 );
+		ofp = stdout;
+	}
+	else
+	{
+		if (( ofp = fopen ( jsonFile, "w" )) == NULL )
+		{
+			fprintf ( stderr, "Cannot open %s for output\n", jsonFile );
+			exit ( 1 );
+		}
 	}
 	fprintf ( ofp, "[" );
 

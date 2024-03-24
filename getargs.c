@@ -11,6 +11,7 @@
 static void Usage ()
 {
 	printf ( "USAGE:  csv2json csvfile jsonfile [options]\n" );
+	printf ( "  output to stdout by setting jsonfile to stdout or -\n" );
 	printf ( "options:\n" );
 	printf ( "  -header  first line is column headers\n" );
 	printf ( "  -style {terse|dict|flat|bloated|keyed}\n" );
